@@ -4,7 +4,7 @@ import time
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-def sms_notifier(event, context):
+def notifier(event, context):
 
     # for debugging the state machine
     print(event)
