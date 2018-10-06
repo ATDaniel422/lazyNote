@@ -14,7 +14,7 @@ def sms_notifier(event, context):
     object_link = event['audio_link']
 
     username = "lazynote.mailer@gmail.com"
-    password = "lazynote!
+    password = "lazynote!"
     subject = "Your LazyNote text is ready!"
     message = f'''Your LazyNote text is finished. Please click the link to download!
 
