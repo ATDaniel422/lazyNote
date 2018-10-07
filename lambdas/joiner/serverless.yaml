@@ -1,0 +1,10 @@
+service: joiner
+
+provider:
+  name: aws
+  runtime: python3.6
+
+functions:
+  joiner:
+    handler: joiner.join_audio
+    timeout: 120
