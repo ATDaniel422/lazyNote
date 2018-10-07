@@ -8,9 +8,6 @@ def index_in_list(list, elem):
 
 
 def parser(event, context):
-
-    print(event)
-
     num_speakers = event["return_json"]["results"]["speaker_labels"]["speakers"]
     items = event["return_json"]["results"]["items"]
     segments = event["return_json"]["results"]["speaker_labels"]["segments"]
