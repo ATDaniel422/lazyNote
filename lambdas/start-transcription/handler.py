@@ -13,13 +13,13 @@ def start_transcription(event, context):
         email = email.split("@")
         job_name = email[0] + x
         prefix = event['prefix']
-        job_name = 'start_transcription_job',
+        job_name = f'start_{prefix}_job'
         transcibe.start_transcription_job( TranscriptionJobName= job_name,
         LanguageCode='en-US',
         MediaFormat= 'wav',
         Media={
             'MediaFileUri':
-            'https://s3-us-east-1.amazonaws.com/lazynote-audio/test_aud1.wav'
+            f'https://s3-us-east-1-amazonaws.com/lazynote-audio/{prefix}.wav'
         },
         OutputBucketName='lazynote-audio',
         Settings={
@@ -28,12 +28,9 @@ def start_transcription(event, context):
             'ChannelIdentification': False
         }
         )
-        event['prefix'] = prefix
-        event['text_json'] = job_name
-        return {
-            "message": "woot woot",
-            "event": event
-        }
+        event['job_name'] = job_name
+        return event
+
 def autogen():
     x = ''.join(random.choices(string.ascii_letters + string.digits, k=16))
     x = x.lower()

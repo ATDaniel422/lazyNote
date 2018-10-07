@@ -66,6 +66,13 @@
                       "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/start-transcription-dev-start_transcription:*:*"
                     }
                   ]
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "*"
+                  ],
+                  "Resource": "*"
                 }
               ]
             }
@@ -92,7 +99,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/start-transcription/dev/1538886365242-2018-10-07T04:26:05.242Z/start-transcription.zip"
+          "S3Key": "serverless/start-transcription/dev/1538926095461-2018-10-07T15:28:15.461Z/start-transcription.zip"
         },
         "FunctionName": "start-transcription-dev-start_transcription",
         "Handler": "handler.start_transcription",
@@ -111,14 +118,14 @@
         "IamRoleLambdaExecution"
       ]
     },
-    "StartUnderscoretranscriptionLambdaVersionpVywsQ4nZstEDs2QLM5Lux8dcc7jAvDdVT7voscJg": {
+    "StartUnderscoretranscriptionLambdaVersionRtlChacNcf7UPeiWUUevqx3zT2ZeD1rKVPcI3Q": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "StartUnderscoretranscriptionLambdaFunction"
         },
-        "CodeSha256": "1Y+hcfWAjuPa+Y9xX32TShuSZMb/VFQswHHmm6eHZdA="
+        "CodeSha256": "fG2DGSQbDimd0nAR6DGCaGuhcKcudFgNaoCBXb6aDSc="
       }
     }
   },
@@ -131,7 +138,7 @@
     "StartUnderscoretranscriptionLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "StartUnderscoretranscriptionLambdaVersionpVywsQ4nZstEDs2QLM5Lux8dcc7jAvDdVT7voscJg"
+        "Ref": "StartUnderscoretranscriptionLambdaVersionRtlChacNcf7UPeiWUUevqx3zT2ZeD1rKVPcI3Q"
       }
     }
   }

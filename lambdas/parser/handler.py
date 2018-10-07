@@ -1,6 +1,7 @@
 import json
 import boto3
-from io import BytesIO
+from io import StringIO, BytesIO
+import botocore
 
 def index_in_list(list, elem):
     for i in list:
@@ -9,11 +10,22 @@ def index_in_list(list, elem):
 
 
 def parser(event, context):
-    num_speakers = event["return_json"]["results"]["speaker_labels"]["speakers"]
-    items = event["return_json"]["results"]["items"]
-    segments = event["return_json"]["results"]["speaker_labels"]["segments"]
-    
-    notes_txt = BytesIO()
+    notes_txt = StringIO()
+    json_name = event["job_name"] + ".json"
+
+    s3 = boto3.resource('s3')
+    bucket = s3.Bucket("lazynote-audio")
+    data = bucket.Object(json_name).get()['Body'].read().decode('utf-8')
+    #concat_json = s3.get_object(Bucket='lazynote-audio',
+    #                     Key= json_name)
+
+    #extract_json = concat_json.get()['Body'].read().decode('utf-8')
+    return_json = json.loads(data)
+
+    num_speakers = return_json["results"]["speaker_labels"]["speakers"]
+    items = return_json["results"]["items"]
+    segments = return_json["results"]["speaker_labels"]["segments"]
+
     speaker_start_times = []
     for i in range(num_speakers):
         speaker_start_times.append([])
@@ -37,13 +49,14 @@ def parser(event, context):
         #else:
             #notes_txt.write(item["alternatives"][0]["content"])
 
-    notes_txt.seek(0)
+    binary = BytesIO(notes_txt.getvalue().encode("utf-8"))
+    notes_txt.close()
     
     s3 = boto3.resource("s3")
     bucket = "lazynote-audio"
     #s3.Bucket(bucket).upload_file("./notes.txt", event["prefix"] + ".txt")
-    s3.Bucket(bucket).upload_fileobj(notes_txt, event["prefix"] + ".txt")
-    notes_txt.close()
+    s3.Bucket(bucket).upload_fileobj(binary, event["prefix"] + ".txt")
+    binary.close()
 
     event["output_uri"] = "http://s3.amazonaws.com/lazynote-audio/" + event["prefix"] + ".txt"
 
