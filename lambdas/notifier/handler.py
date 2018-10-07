@@ -8,7 +8,6 @@ def sms_notifier(event, context):
 
     # for debugging the state machine
     print(event)
-    time.sleep(10)
 
     destination_email = event['email']
 
@@ -19,7 +18,7 @@ def sms_notifier(event, context):
         failure = True
     
     username = "lazynote.mailer@gmail.com"
-    password = "lazynote!
+    password = "lazynote!"
     subject = "You LazyNote text is ready!"
 
     if failure == False:
