@@ -22,12 +22,14 @@ function stop_recording() {
     }
 }
 
-function enter_post_malone() {
-    if (email_bar.value ==="") {
-        alert("Plese enter an email");
-    }
-    if (email_bar.value != "" && event.which === 13) {
-        post_malone();
+function enter_post_malone(event) {
+    if (event.which === 13) {
+        if (email_bar.value == "") {
+            alert("Plese enter an email");
+        }
+        else {
+            post_malone();
+        }
     }
 }
 
