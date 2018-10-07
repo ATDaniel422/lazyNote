@@ -11,16 +11,29 @@ def sms_notifier(event, context):
     time.sleep(10)
 
     destination_email = event['email']
-    object_link = event['audio_link']
 
+    failure = False
+    try:
+        event['output_uri']
+    except:
+        failure = True
+    
     username = "lazynote.mailer@gmail.com"
     password = "lazynote!
-    subject = "Your LazyNote text is ready!"
-    message = f'''Your LazyNote text is finished. Please click the link to download!
+    subject = "You LazyNote text is ready!"
 
-    {object_link}
+    if failure == False:
+        object_link = event['output_uri']
+        success_message = f'''Your LazyNote text is finished. Please click the link to download!
 
-    Thank you for using LazyNote!
+        {object_link}
+
+        Thank you for using LazyNote!
+        '''
+
+    failure_message = f'''We're so sorry, but something seems to have gone wrong. Your data request could not be completed. We apologize and thank you for your patience.
+
+    Thank you for using LazyNote
     '''
 
     # Start email server
@@ -34,7 +47,11 @@ def sms_notifier(event, context):
     msg['From'] = username
     msg['To'] = destination_email
     msg['Subject'] = subject
-    msg.attach(MIMEText(message, 'plain'))
+    
+    if failure == False:
+        msg.attach(MIMEText(success_message, 'plain'))
+    else:
+        msg.attach(MIMEText(failure_message, 'plain'))
     body = msg.as_string()
     server.sendmail(username, destination_email, body)
 
