@@ -5,7 +5,7 @@ import botocore
 
 def get_job(event, context):
     client = boto3.client('transcribe')
-    job_name = event['text_json']
+    job_name = event['job_name']
     status = client.get_transcription_job(
         TranscriptionJobName = job_name
     )

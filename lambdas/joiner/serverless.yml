@@ -3,6 +3,13 @@ service: joiner
 provider:
   name: aws
   runtime: python3.6
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "s3:*"
+      Resource: "*"
+
+  region: us-east-1
 
 functions:
   joiner:

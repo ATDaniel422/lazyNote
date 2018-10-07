@@ -8,6 +8,7 @@ def join_audio(event, context):
     #Set up S3 context
     s3 = boto3.resource('s3')
     audio_bucket = s3.Bucket(AUDIO_BUCKET)
+    audio_bucket.Acl().put(ACL='public-read')
     bucket_prefix = event['prefix']
     audio_objects = audio_bucket.objects.filter(Prefix=bucket_prefix)
 
