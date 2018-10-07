@@ -65,6 +65,7 @@ var mediaConstraints = {
 function onMediaSuccess(stream) {
     window.mediaRecorder = new MediaStreamRecorder(stream);
     window.mediaRecorder.mimeType = 'audio/wav'; // check this line for audio/wav
+    window.mediaRecorder.bufferSize = 16384;
     window.prefix = Math.random().toString(36);
     window.blobs = [];
     window.num = 0;
