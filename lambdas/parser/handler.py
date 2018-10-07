@@ -29,7 +29,6 @@ def parser(event, context):
         if(item["alternatives"][0]["confidence"] != None):
             speaker = index_in_list(speaker_start_times, item["start_time"])
             if(speaker != cur_speaker):
-                cur_index = cur_index + 1
                 cur_speaker = speaker
                 notes_txt.write("\n\n")
             notes_txt.write(item["alternatives"][0]["content"] + " ")
