@@ -25,10 +25,14 @@ function onMediaSuccess(stream) {
 }
 
 function send_s3(data) {
+    d = new Date()
     $.ajax({
-        url: "https://s3.amazonaws.com/lazynote-audio/" + window.random_id + "/" + num + ".wav",
+        url: "https://s3.amazonaws.com/lazynote-audio/" + window.random_id + "/" + d.toISOString() + ".wav",
         type: "PUT",
         data: data,
+        beforeSend: function(req) {
+            req.setRequestHeader("x-amz-acl", "bucket-owner-full-control");
+        },
         processData: false,
         crossDomain: true,
         dataType: "json",
@@ -49,4 +53,5 @@ function onMediaError(e) {
 
 function stopReqording(e) {
     window.mediaRecorder.stop();
+    send_s3(new Blob(window.blobs()));
 }
