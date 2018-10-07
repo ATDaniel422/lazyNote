@@ -1,0 +1,195 @@
+{
+  "service": {
+    "service": "start-transcription",
+    "serviceObject": {
+      "name": "start-transcription"
+    },
+    "provider": {
+      "stage": "dev",
+      "region": "us-east-1",
+      "variableSyntax": "\\${([ ~:a-zA-Z0-9._'\",\\-\\/\\(\\)]+?)}",
+      "name": "aws",
+      "runtime": "python3.6",
+      "versionFunctions": true,
+      "remoteFunctionData": null,
+      "compiledCloudFormationTemplate": {
+        "AWSTemplateFormatVersion": "2010-09-09",
+        "Description": "The AWS CloudFormation template for this Serverless application",
+        "Resources": {
+          "ServerlessDeploymentBucket": {
+            "Type": "AWS::S3::Bucket"
+          },
+          "StartUnderscoretranscriptionLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/start-transcription-dev-start_transcription"
+            }
+          },
+          "IamRoleLambdaExecution": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+              "AssumeRolePolicyDocument": {
+                "Version": "2012-10-17",
+                "Statement": [
+                  {
+                    "Effect": "Allow",
+                    "Principal": {
+                      "Service": [
+                        "lambda.amazonaws.com"
+                      ]
+                    },
+                    "Action": [
+                      "sts:AssumeRole"
+                    ]
+                  }
+                ]
+              },
+              "Policies": [
+                {
+                  "PolicyName": {
+                    "Fn::Join": [
+                      "-",
+                      [
+                        "dev",
+                        "start-transcription",
+                        "lambda"
+                      ]
+                    ]
+                  },
+                  "PolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                      {
+                        "Effect": "Allow",
+                        "Action": [
+                          "logs:CreateLogStream"
+                        ],
+                        "Resource": [
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/start-transcription-dev-start_transcription:*"
+                          }
+                        ]
+                      },
+                      {
+                        "Effect": "Allow",
+                        "Action": [
+                          "logs:PutLogEvents"
+                        ],
+                        "Resource": [
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/start-transcription-dev-start_transcription:*:*"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ],
+              "Path": "/",
+              "RoleName": {
+                "Fn::Join": [
+                  "-",
+                  [
+                    "start-transcription",
+                    "dev",
+                    "us-east-1",
+                    "lambdaRole"
+                  ]
+                ]
+              }
+            }
+          },
+          "StartUnderscoretranscriptionLambdaFunction": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+              "Code": {
+                "S3Bucket": {
+                  "Ref": "ServerlessDeploymentBucket"
+                },
+                "S3Key": "serverless/start-transcription/dev/1538886365242-2018-10-07T04:26:05.242Z/start-transcription.zip"
+              },
+              "FunctionName": "start-transcription-dev-start_transcription",
+              "Handler": "handler.start_transcription",
+              "MemorySize": 1024,
+              "Role": {
+                "Fn::GetAtt": [
+                  "IamRoleLambdaExecution",
+                  "Arn"
+                ]
+              },
+              "Runtime": "python3.6",
+              "Timeout": 6
+            },
+            "DependsOn": [
+              "StartUnderscoretranscriptionLogGroup",
+              "IamRoleLambdaExecution"
+            ]
+          },
+          "StartUnderscoretranscriptionLambdaVersionpVywsQ4nZstEDs2QLM5Lux8dcc7jAvDdVT7voscJg": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "StartUnderscoretranscriptionLambdaFunction"
+              },
+              "CodeSha256": "1Y+hcfWAjuPa+Y9xX32TShuSZMb/VFQswHHmm6eHZdA="
+            }
+          }
+        },
+        "Outputs": {
+          "ServerlessDeploymentBucketName": {
+            "Value": {
+              "Ref": "ServerlessDeploymentBucket"
+            }
+          },
+          "StartUnderscoretranscriptionLambdaFunctionQualifiedArn": {
+            "Description": "Current Lambda function version",
+            "Value": {
+              "Ref": "StartUnderscoretranscriptionLambdaVersionpVywsQ4nZstEDs2QLM5Lux8dcc7jAvDdVT7voscJg"
+            }
+          }
+        }
+      },
+      "coreCloudFormationTemplate": {
+        "AWSTemplateFormatVersion": "2010-09-09",
+        "Description": "The AWS CloudFormation template for this Serverless application",
+        "Resources": {
+          "ServerlessDeploymentBucket": {
+            "Type": "AWS::S3::Bucket"
+          }
+        },
+        "Outputs": {
+          "ServerlessDeploymentBucketName": {
+            "Value": {
+              "Ref": "ServerlessDeploymentBucket"
+            }
+          }
+        }
+      },
+      "vpc": {}
+    },
+    "custom": {
+      "pythonRequirements": {
+        "dockerizePip": true
+      }
+    },
+    "pluginsData": {},
+    "functions": {
+      "start_transcription": {
+        "handler": "handler.start_transcription",
+        "events": [],
+        "name": "start-transcription-dev-start_transcription",
+        "package": {},
+        "memory": 1024,
+        "timeout": 6,
+        "runtime": "python3.6",
+        "vpc": {}
+      }
+    },
+    "artifact": "/home/drax/projects/lazyNote/lambdas/start-transcription/.serverless/start-transcription.zip"
+  },
+  "package": {
+    "artifactDirectoryName": "serverless/start-transcription/dev/1538886365242-2018-10-07T04:26:05.242Z",
+    "artifact": "start-transcription.zip"
+  }
+}
