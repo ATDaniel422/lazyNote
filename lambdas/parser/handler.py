@@ -8,6 +8,8 @@ def index_in_list(list, elem):
 
 
 def parser(event, context):
+    translate = boto3.client(service_name='translate')
+
     num_speakers = event["return_json"]["results"]["speaker_labels"]["speakers"]
     items = event["return_json"]["results"]["items"]
     segments = event["return_json"]["results"]["speaker_labels"]["segments"]
@@ -33,10 +35,19 @@ def parser(event, context):
                 notes_txt.write("\n\n")
                 notes_txt.write("Person " + str(cur_speaker + 1) + ": ")
             notes_txt.write(item["alternatives"][0]["content"] + " ")
-        #else:
-            #notes_txt.write(item["alternatives"][0]["content"])
 
     notes_txt.close()
+
+    with open("./notes.txt") as f:
+        content = f.readlines()
+    content = [x.strip() for x in content]
+
+    translated_text = open("./translated_text.txt", "w")
+    for line in content:
+        if(len(line) > 10):
+            result = translate.translate_text(Text=str(line), SourceLanguageCode="en", TargetLanguageCode="es")
+            translated_text.write(result.get('TranslatedText') + "\n\n")
+
     
     s3 = boto3.resource("s3")
     bucket = "lazynote-audio"
@@ -44,4 +55,4 @@ def parser(event, context):
 
     event["output_uri"] = "http://s3.amazonaws.com/lazynote-audio/" + event["prefix"] + ".txt"
 
-    return event
+#    return event
