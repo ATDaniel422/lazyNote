@@ -4,6 +4,12 @@ import wave
 
 AUDIO_BUCKET = "lazynote-audio"
 
+def wav_gen(iter_in):
+    iter_file = iter_in.__iter__()
+    for f in iter_file:
+        for part in f.get()['Body'].read().split(b"RIFF")[1:-1]:
+            yield BytesIO(b"RIFF" + part)
+
 def join_audio(event, context):
     #Set up S3 context
     s3 = boto3.resource('s3')
@@ -17,11 +23,10 @@ def join_audio(event, context):
     out_wav = wave.open(out_buf, 'wb')
 
     #We need a special case for first iteration, so we're iterating manually
-    i = audio_objects.__iter__()
-    data = next(i).get()['Body']
+    i = wav_gen(audio_objects)
 
     #First time through we need to set the WAV properties
-    with wave.open(data, 'rb') as in_wav:
+    with wave.open(next(i), 'rb') as in_wav:
         out_wav.setnchannels(in_wav.getnchannels())
         out_wav.setframerate(in_wav.getframerate())
         out_wav.setsampwidth(in_wav.getsampwidth())
@@ -29,8 +34,7 @@ def join_audio(event, context):
 
     #Do the rest of the iteration like normal
     for audio_object in i:
-        data = audio_object.get()['Body']
-        with wave.open(data, 'rb') as in_wav:
+        with wave.open(audio_object, 'rb') as in_wav:
             out_wav.writeframes(in_wav.readframes(in_wav.getnframes()))
 
     #Wrap everything up, and send it off to S3
