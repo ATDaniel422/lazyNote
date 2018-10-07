@@ -8,7 +8,6 @@ def index_in_list(list, elem):
 
 
 def parser(event, context):
-
     num_speakers = event["return_json"]["results"]["speaker_labels"]["speakers"]
     items = event["return_json"]["results"]["items"]
     segments = event["return_json"]["results"]["speaker_labels"]["segments"]
@@ -41,19 +40,8 @@ def parser(event, context):
     
     s3 = boto3.resource("s3")
     bucket = "lazynote-audio"
-    s3.Bucket(bucket).upload_file("./notes.txt", "notes.txt")
+    s3.Bucket(bucket).upload_file("./notes.txt", event["prefix"] + ".txt")
 
+    event["output_uri"] = "http://s3.amazonaws.com/lazynote-audio/" + event["prefix"] + ".txt"
 
-    body = {
-#        "message": notes,
-#        "input": event
-    }
-
-    response = {
-        "statusCode": 200,
-        "body": json.dumps(body)
-    }
-
-    return response
-
-    # http://s3.amazonaws.com/lazynote-audio/notes.txt
+    return event
