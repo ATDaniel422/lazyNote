@@ -1,0 +1,130 @@
+body {
+    font-family: 'Comfortaa', cursive;
+    font-size: 1.2em;
+    display: grid;
+    grid-template-columns: repeat(10, 10%);
+    background-color: white;
+}
+
+.nav {
+    color: white;
+    font-size: 1.5em;
+    background-color: rgba(79,55,78, .7);
+}
+
+#logo {
+    color: white;
+}
+#logo .hover {
+    color: grey;
+}
+
+#bottom_page {
+    grid-column: 1/11;
+    height: 450px;
+    z-index: -1;
+}
+
+.banner_image {
+    grid-column-start: 2;
+    display: flex;
+    justify-content: flex-start;
+    background-image: url(images/microphone2.jpg);
+    background-size: cover;
+    text-align: center;
+    color: white;
+    height: 600px;
+}
+
+#banner_text {
+    align-self: center;
+    font-size: 5em;
+    margin-right: 1.5em;
+    /* margin-bottom: .8em; */
+    margin-left: 1.55em;
+}
+
+#top_page {
+    display: flex;
+    flex-direction: column;
+    grid-column: 2/10;
+    background-color: white;
+    box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.animation {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-left: 18em;
+    height: 200px;
+    width: 200px;
+    background-color: rgb(127, 14, 22);
+    animation:
+        pulse 3s ease infinite alternate,
+        nudge 5s linear infinite alternate;
+    border-radius: 100%;
+}
+
+.animation.playing {
+
+    @keyframes nudge {
+        0%, 100% {
+      transform: translate(0, 0);
+    }
+
+    50% {
+      transform: translate(150px, 0);
+    }
+
+    80% {
+      transform: translate(-150px, 0);
+        }
+    }
+}
+
+#button_tray {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.button {
+    margin-left: 2em;
+    margin-right: 2em;
+    margin-top: 2em;
+}
+
+.email {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 2em;
+
+}
+
+.email input {
+    width: 60%;
+    height: 2.5em;
+    font-size: 1.1em;
+}
+
+#submit_button {
+    margin-top: 1em;
+}
+
+
+.container_sm {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    margin-top: 5%;
+    margin-left: 15%;
+    margin-right: 15%;
+
+}
+
+.container_lg {
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 5%;
+}

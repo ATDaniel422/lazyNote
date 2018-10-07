@@ -5,33 +5,50 @@
         <title>LazyNote</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="style.css">
-        <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Cormorant+Upright" rel="stylesheet">
     </head>
+    <header>
+        <ul class="nav fixed-top">
+            <li class="nav-item">
+                <a id="logo" class="nav-link" href="index.html">lazyNote</a>
+            </li>
+        </ul>
+    </header>
     <body>
-        <div class="bottom_page">
-            <div class="banner_image" fixed-top>
-                <img class="employee_image" src="images/company_profiles/bransyn.jpg">
+        <div id="bottom_page" fixed>
+            <div class="banner_image">
+                <h1 id="banner_text">lazy<strong>Note</strong></h1>
             </div>
-            <div class="top_page">
-                <div class="container_sm">
-                    <div id="animation">
-                    </div>
-                    <div id="button_tray">
-                    </div>
-                    <div class="email">
-                    </div>
-                </div>
-                <div class="container_lg">
-                    <h2>About lazyNote</h2>
-                    <p>
-                        lazyNote is a web application designed to make note-taking easier. All you have to do is hit record and it starts sending your audio to our system. Once you are finished recording your audio, hit submit and lazyNote begins turning it into text.
-                    </p>
-                    <p>
-                        This system is utilizes Amazon Web Services serverless architecture and AWS Transcribe speech-to-text API. Each serverless Lambda Function is built using Python, and coordinated using and AWS Step Function.
-                    </p>
-                </div>
+        </div>
+        <div id="top_page">
+            <div class="container_sm">
+                <div class="animation" id="recording_animation">
 
+                </div>
+                <div id="button_tray">
+                    <button type="button" id="record_button" class="btn btn-danger btn-lg">Record</button>
+                    <button type="button" id="stop_button" class="btn btn-dark btn-lg">Stop</button>
+                    <h4 id="recording_text" hidden>Recording</h4>
+                </div>
+                <div class="email">
+                    <form id="email_form" method=post>
+                        <h3>Email</h3>
+                        <input type="email" id="email" name="email" placeholder="email@example.com" autocomplete="email" required> <br>
+                        <button type="button" id="submit_button" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
             </div>
+            <div class="container_lg">
+                <h2>About lazyNote</h2>
+                <p>
+                    lazyNote is a web application designed to make note-taking easier. All you have to do is hit record and it starts sending your audio to our system. Once you are finished recording your audio, hit submit and lazyNote begins turning it into text.
+                </p>
+                <p>
+                    This system is utilizes Amazon Web Services serverless architecture and AWS Transcribe speech-to-text API. Each serverless Lambda Function is built using Python, and coordinated using and AWS Step Function.
+                </p>
+            </div>
+
         </div>
 
 
