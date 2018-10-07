@@ -1,0 +1,5 @@
+*.swp
+*.zip
+__pycache__/
+.serverless/
+.DS_Store
