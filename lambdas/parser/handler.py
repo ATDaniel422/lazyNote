@@ -24,16 +24,17 @@ def parser(event, context):
             speaker_start_times[int(float(speaker_index))].append(start_time)
 
     cur_speaker = 0
-    cur_index = 0
+    notes_txt.write("Person " + str(cur_speaker + 1) + ": ")
     for item in items:
         if(item["alternatives"][0]["confidence"] != None):
             speaker = index_in_list(speaker_start_times, item["start_time"])
             if(speaker != cur_speaker):
                 cur_speaker = speaker
                 notes_txt.write("\n\n")
+                notes_txt.write("Person " + str(cur_speaker + 1) + ": ")
             notes_txt.write(item["alternatives"][0]["content"] + " ")
-        else:
-            notes_txt.write(item["alternatives"][0]["content"])
+        #else:
+            #notes_txt.write(item["alternatives"][0]["content"])
 
     notes_txt.close()
     
