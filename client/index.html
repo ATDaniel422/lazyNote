@@ -13,6 +13,9 @@
             <li class="nav-item">
                 <a id="logo" class="nav-link" href="index.html">lazyNote</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="about_us.html">About</a>
+            </li>
         </ul>
     </header>
     <body>
@@ -24,7 +27,7 @@
         <div id="top_page">
             <div class="container_sm">
                 <div class="animation" id="recording_animation">
-                    
+
                 </div>
                 <div id="button_tray">
                     <button type="button" id="record_button" class="btn btn-danger btn-lg">Record</button>
@@ -35,26 +38,29 @@
                     <form id="email_form" method=post>
                         <h3>Email</h3>
                         <input type="email" id="email" name="email" placeholder="email@example.com" autocomplete="email" required> <br>
-                        <button type="button" id="submit_button" class="btn btn-primary">Submit</button>
+                        <button type="submit" id="submit_button" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
             </div>
             <div class="container_lg">
-                <h2>About lazyNote</h2>
+                <h2>How to use lazyNote</h2>
+                <h4>Step 1: Record</h4>
                 <p>
-                    lazyNote is a web application designed to make note-taking easier, be it in a class room or board meeting. All you have to do is hit record and it starts sending your audio to our system. Once you are finished recording your audio, hit submit and lazyNote begins turning it into text.
+                    The first step is record your audio. Make sure you have a stable internet connection and are withing hearing distance of the speaker. Press the Record button when you're ready.
                 </p>
+                <h4>Step 2: Be Patient</h4>
                 <p>
-                    This system is utilizes Amazon Web Services' serverless architecture and AWS Transcribe speech-to-text API. Each serverless Lambda Function is built using Python, and coordinated using and AWS Step Function.
+                    As soon as you press record, the process of turning speach into a readable document begins. Please don't close your computer until you are finished recording, otherwise it may disrupt your data.
                 </p>
+                <h4>Step 3: Submit Your Email</h4>
                 <p>
-
+                    Once you are finished recording, hit the Stop button to finish the recording. Enter your email address and hit the Submit button. Don't worry, we won't spam you mailbox. lazyNote just needs to know where to send the text file once it's ready.
                 </p>
+                <h4>Look for an Email from Us</h4>
                 <p>
-
+                    Once our system is finished processing the data, we will email you a link so that you can download your text file wherever it's most convenient for you. Thanks for using lazyNote!
                 </p>
             </div>
-
         </div>
 
 
