@@ -5,20 +5,26 @@ const recording_animation = document.getElementById("recording_animation");
 const submit_button = document.getElementById("submit_button");
 const email_bar = document.getElementById("email");
 
+record_button.addEventListener("click", start_recording);
+stop_button.addEventListener("click", stop_recording);
+submit_button.addEventListener("click", post_malone);
+email_bar.addEventListener("keypress", enter_post_malone);
+
+
 function start_recording() {
     if (recording_animation.style.animationPlayState != "running") {
-        navigator.getUserMedia(mediaConstraints, onMediaSuccess, onMediaError);
         recording_animation.style.animationPlayState = "running";
         recording_text.toggleAttribute('hidden');
+        navigator.getUserMedia(mediaConstraints, onMediaSuccess, onMediaError);
     }
 }
 
 function stop_recording() {
     if (recording_animation.style.animationPlayState == "running") {
-        window.mediaRecorder.stop();
-        send_s3(new Blob(window.blobs));
         recording_animation.style.animationPlayState = "paused";
         recording_text.toggleAttribute('hidden');
+        window.mediaRecorder.stop();
+        send_s3(new Blob(window.blobs));
     }
 }
 
@@ -106,10 +112,7 @@ function send_s3(data) {
     });
 }
 
-record_button.addEventListener("click", start_recording);
-stop_button.addEventListener("click", stop_recording);
-submit_button.addEventListener("click", post_malone);
-email_bar.addEventListener("keypress", enter_post_malone);
+
 
 function onMediaError(e) {
     console.error('media error', e);
